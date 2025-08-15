@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NullSpecterScripts — Cybersecurity & Automation</title>
+  <meta name="description" content="NullSpecterScripts: ethical cybersecurity assessments and precision automation scripting." />
+  <meta name="color-scheme" content="dark light">
+  <style>
+    /* -------- Base, Theme & Layout -------- */
+    :root{
+      --bg:#0b0d10; --panel:#101419; --ink:#e6f1ff; --muted:#9fb0c0; --accent:#7c5cff; --accent-2:#1ef7d2; --warn:#ff3864;
+      --rad:22px; --soft:18px; --shadow:0 15px 45px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; color:var(--ink); background:radial-gradient(1200px 900px at 80% -10%, #152034 0%, transparent 60%),
+      radial-gradient(800px 600px at 0% 120%, #181a2a 0%, transparent 55%), var(--bg); line-height:1.6}
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1100px; margin:0 auto; padding:0 20px}
+    .grid{display:grid; gap:24px}
+
+    /* -------- Navbar -------- */
+    header{position:sticky; top:0; z-index:50; backdrop-filter: blur(8px); background:linear-gradient(180deg, rgba(11,13,16,.85), rgba(11,13,16,.55)); border-bottom:1px solid #1f2530}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:16px 0}
+    .brand{display:flex; align-items:center; gap:12px; letter-spacing:.5px}
+    .logo{width:38px; height:38px; border-radius:14px; background:linear-gradient(135deg, var(--accent), var(--accent-2)); box-shadow:0 6px 20px rgba(124,92,255,.45)}
+    .brand h1{margin:0; font-size:18px}
+    nav ul{display:flex; list-style:none; gap:18px; margin:0; padding:0}
+    nav a{color:var(--ink); opacity:.9}
+    nav a:hover{opacity:1}
+    .cta{padding:10px 16px; border-radius:14px; background:linear-gradient(135deg, var(--accent) 0%, #5b3bff 60%); color:white; box-shadow:0 10px 25px rgba(124,92,255,.35); border:0}
+
+    /* -------- Hero -------- */
+    .hero{position:relative; padding:96px 0 72px; overflow:hidden}
+    .hero h2{font-size: clamp(36px, 4.2vw, 56px); line-height:1.1; margin:0 0 14px}
+    .sub{font-size: clamp(16px, 1.6vw, 20px); color:var(--muted); max-width:760px}
+    .glitch{position:absolute; inset:auto 0 -15%; height:220px; filter:contrast(1.2) saturate(1.1); opacity:.6; pointer-events:none; background: repeating-linear-gradient(90deg, rgba(124,92,255,.12) 0 1px, transparent 1px 2px),
+      radial-gradient(900px 110px at 60% 40%, rgba(30,247,210,.12), transparent 55%),
+      radial-gradient(700px 110px at 20% 50%, rgba(124,92,255,.18), transparent 55%)}
+    .hero-actions{display:flex; gap:12px; margin-top:22px; flex-wrap:wrap}
+    .ghost{padding:10px 16px; border-radius:14px; border:1px solid #2a3140; background:transparent; color:var(--ink)}
+
+    /* -------- Highlights -------- */
+    .cards{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:18px; margin-top:38px}
+    .card{background: linear-gradient(180deg, rgba(16,20,25,.88), rgba(16,20,25,.7)); border:1px solid #1f2530; border-radius:var(--rad); padding:18px; box-shadow:var(--shadow)}
+    .card h3{margin:8px 0 6px; font-size:18px}
+    .badge{font-size:12px; letter-spacing:.3px; color:#add2ff; background:#112036; border:1px solid #203453; border-radius:999px; padding:4px 8px; display:inline-block}
+
+    /* -------- Sections -------- */
+    section{padding:72px 0}
+    .section-title{font-size:26px; margin:0 0 10px}
+    .section-sub{color:var(--muted); margin:0 0 22px}
+
+    /* -------- Services List -------- */
+    .services{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:18px}
+    .service{padding:18px; border:1px solid #1f2530; border-radius:var(--soft); background:linear-gradient(180deg, rgba(20,24,31,.9), rgba(16,20,25,.75))}
+    .service h4{margin:6px 0 6px}
+    .service p{margin:0; color:var(--muted)}
+
+    /* -------- Case Studies -------- */
+    .cases{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:18px}
+    .case{border:1px solid #1f2530; border-radius:var(--soft); overflow:hidden; background:#0f1318}
+    .case .img{height:160px; background:linear-gradient(135deg, #1b2537, #141b27); position:relative}
+    .case .img::after{content:""; position:absolute; inset:0; background:radial-gradient(180px 80px at 20% 30%, rgba(124,92,255,.35), transparent 60%), radial-gradient(200px 100px at 80% 70%, rgba(30,247,210,.25), transparent 60%)}
+    .case .body{padding:16px}
+
+    /* -------- Contact -------- */
+    form{display:grid; gap:12px; max-width:640px}
+    input, textarea{width:100%; padding:12px 14px; color:var(--ink); background:#0e1217; border:1px solid #222a36; border-radius:12px}
+    textarea{min-height:120px; resize:vertical}
+    label{font-size:14px; color:var(--muted)}
+
+    /* -------- Footer -------- */
+    footer{border-top:1px solid #1f2530; padding:28px 0; color:#9bb0c7}
+    .mini{display:flex; gap:18px; flex-wrap:wrap; align-items:center; justify-content:space-between}
+    .legal{font-size:12px; opacity:.8}
+
+    /* -------- Utilities -------- */
+    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+    .pill{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; background:rgba(124,92,255,.12); border:1px solid rgba(124,92,255,.35); font-size:12px}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace}
+    .divider{height:1px; background:#1f2530; margin:22px 0}
+    .center{text-align:center}
+
+    @media (max-width:640px){
+      .nav{padding:12px 0}
+      .cta{padding:9px 14px}
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== NAV ===== -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="NullSpecterScripts Home">
+        <span class="logo" aria-hidden="true"></span>
+        <h1>NullSpecterScripts</h1>
+      </a>
+      <nav aria-label="primary">
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#cases">Case Studies</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <a class="cta" href="#contact">Get a Quote</a>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <main id="top" class="container">
+    <section class="hero" aria-labelledby="hero-title">
+      <p class="pill mono" title="Status"><span>●</span> Operational · 99.99% uptime</p>
+      <h2 id="hero-title">Ethical cybersecurity & precision automation.</h2>
+      <p class="sub">We help teams harden their systems and ship faster with secure, maintainable scripts. Offensive testing <em>by the book</em>, defensive engineering that sticks, and automations that remove toil.</p>
+      <div class="hero-actions">
+        <a class="cta" href="#services">Explore Services</a>
+        <a class="ghost" href="#contact">Start a Project</a>
+      </div>
+      <div class="glitch" aria-hidden="true"></div>
+
+      <div class="cards" aria-label="Highlights">
+        <article class="card">
+          <span class="badge">Security Assessments</span>
+          <h3>Pen‑testing (ethical)</h3>
+          <p>Scoped, permissioned testing for web, network, and cloud with documented findings and remediation steps.</p>
+        </article>
+        <article class="card">
+          <span class="badge">Automation</span>
+          <h3>Custom scripting</h3>
+          <p>Bespoke tooling in Python, Bash, and PowerShell to reduce manual work and improve reliability.</p>
+        </article>
+        <article class="card">
+          <span class="badge">DevSecOps</span>
+          <h3>Secure pipelines</h3>
+          <p>CI/CD hardening, secrets management, SBOMs, and policy‑as‑code to keep supply chains clean.</p>
+        </article>
+        <article class="card">
+          <span class="badge">Advisory</span>
+          <h3>Threat modeling</h3>
+          <p>Modeling workshops, architecture reviews, and prioritization maps aligned to your risk.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== SERVICES ===== -->
+    <section id="services" aria-labelledby="services-title">
+      <h3 class="section-title">Services</h3>
+      <p class="section-sub">Everything we do is legal, authorized, and contract‑bound. No exceptions.</p>
+      <div class="services">
+        <article class="service">
+          <h4>Web & API Penetration Testing</h4>
+          <p>From OWASP Top 10 to business‑logic flaws, with reproducible PoCs and severity‑scored reports.</p>
+        </article>
+        <article class="service">
+          <h4>Cloud Posture Reviews</h4>
+          <p>Secure configurations for AWS/Azure/GCP, IAM least‑privilege, and guardrails to prevent drift.</p>
+        </article>
+        <article class="service">
+          <h4>Automation & SRE Scripting</h4>
+          <p>Task automation, incident tooling, and environment bootstrapping in Python, Bash, and PowerShell.</p>
+        </article>
+        <article class="service">
+          <h4>Red–Blue Exercises</h4>
+          <p>Table‑tops and detection engineering to tune alerts, improve containment, and reduce MTTR.</p>
+        </article>
+        <article class="service">
+          <h4>Secure Code Reviews</h4>
+          <p>Static/dynamic analysis with developer‑friendly fixes and coaching.</p>
+        </article>
+        <article class="service">
+          <h4>Policy & Compliance Support</h4>
+          <p>Help mapping controls (CIS, SOC 2, ISO 27001) and building pragmatic security policies.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== CASE STUDIES ===== -->
+    <section id="cases" aria-labelledby="cases-title">
+      <h3 class="section-title">Case Studies</h3>
+      <p class="section-sub">Recent engagements (details anonymized):</p>
+      <div class="cases">
+        <article class="case">
+          <div class="img" role="img" aria-label="Enterprise dashboard security hardening artwork"></div>
+          <div class="body">
+            <h4>Enterprise SaaS</h4>
+            <p>Eliminated critical auth bypass and enforced MFA; risk reduced from Critical to Low within 2 sprints.</p>
+          </div>
+        </article>
+        <article class="case">
+          <div class="img" role="img" aria-label="Cloud posture visualization"></div>
+          <div class="body">
+            <h4>Cloud Fintech</h4>
+            <p>IAM least‑privilege and network segmentation; blocked lateral movement paths in prod.</p>
+          </div>
+        </article>
+        <article class="case">
+          <div class="img" role="img" aria-label="Automation pipeline illustration"></div>
+          <div class="body">
+            <h4>DevOps Automation</h4>
+            <p>Built release orchestration scripts—cut deployment time by 68% and errors by 90%.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" aria-labelledby="contact-title">
+      <h3 class="section-title">Contact</h3>
+      <p class="section-sub">Tell us about your objectives, scope, and timeline. We respond within one business day.</p>
+      <form id="contact-form" aria-describedby="privacy-note">
+        <label for="name">Name</label>
+        <input id="name" name="name" required placeholder="Jane Doe" />
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required placeholder="you@company.com" />
+
+        <label for="message">Project details</label>
+        <textarea id="message" name="message" required placeholder="Briefly describe your goals and constraints…"></textarea>
+
+        <button class="cta" type="submit">Send</button>
+        <p id="privacy-note" class="legal">By submitting, you agree to be contacted about your request. We never sell your data.</p>
+      </form>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container mini">
+      <p class="mono">© <span id="year"></span> NullSpecterScripts</p>
+      <p class="legal">Ethical use only · Security first · Built with care</p>
+    </div>
+  </footer>
+
+  <script>
+    // Dynamic year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Lightweight, privacy‑friendly contact handler (mailto fallback)
+    const form = document.getElementById('contact-form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const params = new URLSearchParams({
+        subject: `New inquiry — ${data.get('name') || 'NullSpecterScripts'}`,
+        body: `Name: ${data.get('name')}\nEmail: ${data.get('email')}\n\n${data.get('message')}`
+      });
+      // TODO: replace with your contact address
+      const to = 'contact@nullspecterscripts.example';
+      window.location.href = `mailto:${to}?${params.toString()}`;
+    });
+  </script>
+</body>
+</html>
